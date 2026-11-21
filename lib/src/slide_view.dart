@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:studio_core/core/strings.dart';
 import 'package:studio_core/app/game_api.dart';
 import 'package:studio_core/app/services/audio.dart';
 import 'package:studio_core/core/game_rules.dart';
@@ -29,7 +30,6 @@ class _SlideViewState extends State<SlideView> {
   double _cell = 30;
 
   PlayContext get ctx => widget.ctx;
-  bool get _tr => ctx.lang == 'tr';
 
   @override
   void initState() {
@@ -157,8 +157,8 @@ class _SlideViewState extends State<SlideView> {
   Widget _hud() {
     final goal = level.target;
     final label = goal == 0
-        ? (_tr ? 'Puan: ${game.score}' : 'Score: ${game.score}')
-        : (_tr ? 'Sıra: ${game.lines} / $goal' : 'Lines: ${game.lines} / $goal');
+        ? (Strings.tx(ctx.lang, 'Puan: {0}', 'Score: {0}', [game.score]))
+        : (Strings.tx(ctx.lang, 'Sıra: {0} / {1}', 'Lines: {0} / {1}', [game.lines, goal]));
     final left = level.moveLimit > 0 ? level.moveLimit - game.moves : null;
     final secs = level.timeLimit > 0 ? (level.timeLimit - _seconds).clamp(0, 9999) : _seconds;
     String two(int x) => x.toString().padLeft(2, '0');
