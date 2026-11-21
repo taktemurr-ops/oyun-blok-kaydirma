@@ -152,7 +152,7 @@ final blokKaydirmaConfig = GameConfig(
       'हर चाल के बाद नीचे से नई पंक्ति उठती है। भरी पंक्तियाँ साफ़ होती हैं; ऊपर तक न पहुँचें!',
       'প্রতি চালের পর নিচ থেকে নতুন সারি ওঠে। ভরা সারি মুছে যায়; ওপরে পৌঁছাবেন না!',
       'Setiap langkah, satu baris baru naik. Baris penuh hilang; jangan sampai ke atas!',
-      'Setiap lnomborh, satu baris baru naik. Baris penuh hilang; jangan sampai ke atas!',
+      'Setiap langkah, satu baris baru naik. Baris penuh hilang; jangan sampai ke atas!',
       'ทุกตาจะมีแถวใหม่ดันขึ้นมา แถวเต็มจะหายไป อย่าให้ถึงด้านบน!',
       'Sau mỗi nước, một hàng mới dâng lên. Hàng đầy sẽ biến mất; đừng chạm đỉnh!',
       'Bawat galaw, may bagong hanay na umaakyat. Nawawala ang punong hanay; huwag umabot sa itaas!',
