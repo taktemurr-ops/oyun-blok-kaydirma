@@ -80,7 +80,7 @@ final blokKaydirmaConfig = GameConfig(
       'Trượt, thả, lấp đầy hàng!',
       'I-slide, ihulog, kumpletuhin ang hanay!',
     ],
-  seedColor: const Color(0xFF5E35B1),
+  seedColor: const Color(0xFF7C5A9E),
   icon: Icons.swap_horiz_rounded,
   rules: SlideRules(),
   buildPlay: (ctx) => SlideView(ctx: ctx),
