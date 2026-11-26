@@ -13,15 +13,29 @@ import 'slide_rules.dart';
 
 final Map<StudioLook, ThemeData> _studioThemes = {};
 
-class SlideView extends StatefulWidget {
+/// Oyun ekranı: düğmeler, çipler, üst bilgi ve pencereler onaylı koyu
+/// tasarımda (merkezin paleti, studio-core StudioLook); tahta çizimi kendi
+/// renklerini korur.
+class SlideView extends StatelessWidget {
   final PlayContext ctx;
   const SlideView({super.key, required this.ctx});
 
   @override
-  State<SlideView> createState() => _SlideViewState();
+  Widget build(BuildContext context) {
+    final look = StudioLook.of(context);
+    return Theme(data: _studioThemes[look] ??= buildStudioTheme(look), child: SlideViewBody(ctx: ctx));
+  }
 }
 
-class _SlideViewState extends State<SlideView> {
+class SlideViewBody extends StatefulWidget {
+  final PlayContext ctx;
+  const SlideViewBody({super.key, required this.ctx});
+
+  @override
+  State<SlideViewBody> createState() => _SlideViewState();
+}
+
+class _SlideViewState extends State<SlideViewBody> {
   late SlideLevel level;
   late SlideGame game;
   int? _drag;
@@ -103,15 +117,8 @@ class _SlideViewState extends State<SlideView> {
     return i < 0 ? null : i;
   }
 
-  /// Oyun içi düğmeler, çipler ve yazılar onaylı koyu tasarımda (merkezin
-  /// paleti); tahta çizimi kendi renklerini korur.
   @override
   Widget build(BuildContext context) {
-    final look = StudioLook.of(context);
-    return Theme(data: _studioThemes[look] ??= buildStudioTheme(look), child: Builder(builder: _build));
-  }
-
-  Widget _build(BuildContext context) {
     return LayoutBuilder(builder: (context, cons) {
       _cell = math.max(12.0, math.min((cons.maxWidth - 24) / kSlideCols, (cons.maxHeight * 0.72) / (kSlideRows + 1.4)));
       final w = _cell * kSlideCols, h = _cell * kSlideRows;
