@@ -6,19 +6,36 @@ import 'package:studio_core/core/strings.dart';
 import 'package:studio_core/app/game_api.dart';
 import 'package:studio_core/app/services/audio.dart';
 import 'package:studio_core/core/game_rules.dart';
+import 'package:studio_core/app/studio_ui.dart';
 
 import 'slide_engine.dart';
 import 'slide_rules.dart';
 
-class SlideView extends StatefulWidget {
+final Map<StudioLook, ThemeData> _studioThemes = {};
+
+/// Oyun ekranı: düğmeler, çipler, üst bilgi ve pencereler onaylı koyu
+/// tasarımda (merkezin paleti, studio-core StudioLook); tahta çizimi kendi
+/// renklerini korur.
+class SlideView extends StatelessWidget {
   final PlayContext ctx;
   const SlideView({super.key, required this.ctx});
 
   @override
-  State<SlideView> createState() => _SlideViewState();
+  Widget build(BuildContext context) {
+    final look = StudioLook.of(context);
+    return Theme(data: _studioThemes[look] ??= buildStudioTheme(look), child: SlideViewBody(ctx: ctx));
+  }
 }
 
-class _SlideViewState extends State<SlideView> {
+class SlideViewBody extends StatefulWidget {
+  final PlayContext ctx;
+  const SlideViewBody({super.key, required this.ctx});
+
+  @override
+  State<SlideViewBody> createState() => _SlideViewState();
+}
+
+class _SlideViewState extends State<SlideViewBody> {
   late SlideLevel level;
   late SlideGame game;
   int? _drag;
