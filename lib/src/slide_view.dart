@@ -6,9 +6,12 @@ import 'package:studio_core/core/strings.dart';
 import 'package:studio_core/app/game_api.dart';
 import 'package:studio_core/app/services/audio.dart';
 import 'package:studio_core/core/game_rules.dart';
+import 'package:studio_core/app/studio_ui.dart';
 
 import 'slide_engine.dart';
 import 'slide_rules.dart';
+
+final Map<StudioLook, ThemeData> _studioThemes = {};
 
 class SlideView extends StatefulWidget {
   final PlayContext ctx;
@@ -100,8 +103,15 @@ class _SlideViewState extends State<SlideView> {
     return i < 0 ? null : i;
   }
 
+  /// Oyun içi düğmeler, çipler ve yazılar onaylı koyu tasarımda (merkezin
+  /// paleti); tahta çizimi kendi renklerini korur.
   @override
   Widget build(BuildContext context) {
+    final look = StudioLook.of(context);
+    return Theme(data: _studioThemes[look] ??= buildStudioTheme(look), child: Builder(builder: _build));
+  }
+
+  Widget _build(BuildContext context) {
     return LayoutBuilder(builder: (context, cons) {
       _cell = math.max(12.0, math.min((cons.maxWidth - 24) / kSlideCols, (cons.maxHeight * 0.72) / (kSlideRows + 1.4)));
       final w = _cell * kSlideCols, h = _cell * kSlideRows;
